@@ -51,19 +51,17 @@ A pure Python client for the SAP HANA Database
 %install
 %python_install
 %python_expand %fdupes %{buildroot}%{$python_sitelib}
-# do not install tests
-%python_expand rm -r %{buildroot}%{$python_sitelib}/tests
 
-#%if %{with test}
-#%check
-#%pytest tests
-#%endif
+%if %{with test}
+%check
+%pytest tests
+%endif
 
 %files %{python_files}
 %if 0%{?sle_version:1} && 0%{?sle_version} < 120300
-%doc README.md LICENSE
+%doc README.rst LICENSE
 %else
-%doc README.md
+%doc README.rst
 %license LICENSE
 %endif
 %{python_sitelib}/*
