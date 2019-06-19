@@ -5,59 +5,11 @@ services:
 language: python
 
 stages:
-  - test
   - delivery
   - submit
 
 jobs:
   include:
-    - stage: test
-      python: 2.7
-      env: TOXENV=py27-codeclimate
-      install:
-          - pip install -U pip setuptools wheel
-          - pip install -r requirements-tests.txt
-          - pip install -e .
-      script:
-          - py.test -vv --cov=pyhdb --cov-config .coveragerc --cov-report term --cov-report xml
-
-    - stage: test
-      python: 3.4
-      env: TOXENV=py27-codeclimate
-      install:
-          - pip install -U pip setuptools wheel
-          - pip install -r requirements-tests.txt
-          - pip install -e .
-      script:
-          - py.test -vv --cov=pyhdb --cov-config .coveragerc --cov-report term --cov-report xml
-
-    - stage: test
-      python: 3.5
-      env: TOXENV=py27-codeclimate
-      install:
-          - pip install -U pip setuptools wheel
-          - pip install -r requirements-tests.txt
-          - pip install -e .
-      script:
-          - py.test -vv --cov=pyhdb --cov-config .coveragerc --cov-report term --cov-report xml
-
-    - stage: test
-      python: 3.6
-      env: TOXENV=py36-codeclimate
-      before_script:
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
-          - ./cc-test-reporter before-build
-      install:
-          - pip install -U pip setuptools wheel
-          - pip install -r requirements-tests.txt
-          - pip install -e .
-      script:
-          - py.test -vv --cov=pyhdb --cov-config .coveragerc --cov-report term --cov-report xml
-      after_script:
-          - mv tests/coverage.xml .
-          - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT tests/coverage.xml
-
     - stage: delivery
       if: type != pull_request
       env:

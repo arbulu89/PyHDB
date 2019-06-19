@@ -54,10 +54,10 @@ A pure Python client for the SAP HANA Database
 # do not install tests
 %python_expand rm -r %{buildroot}%{$python_sitelib}/tests
 
-%if %{with test}
-%check
-%pytest tests
-%endif
+#%if %{with test}
+#%check
+#%pytest tests
+#%endif
 
 %files %{python_files}
 %if 0%{?sle_version:1} && 0%{?sle_version} < 120300
